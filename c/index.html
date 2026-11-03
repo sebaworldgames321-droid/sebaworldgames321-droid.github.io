@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dune Dash challenge</title>
+<meta name="description" content="A Dune Dash challenge: run the same course and try to beat your friend's distance.">
+<meta property="og:title" content="Dune Dash challenge">
+<meta property="og:description" content="Run my course and try to beat my distance.">
+<meta property="og:image" content="https://sebaworldgames321-droid.github.io/c/og.png">
+<meta property="og:type" content="website">
+<meta name="robots" content="noindex">
+<style>
+  :root { --bg: #0b0a10; --panel: #17131d; --ink: #f1e9dc; --muted: #b9ad9c; --accent: #ff6a3d; --gold: #ffc450; --line: rgba(255,196,80,.35); }
+  * { box-sizing: border-box; }
+  body { margin: 0; min-height: 100vh; background: radial-gradient(120% 80% at 50% 0%, #3a163e 0%, #150b26 55%, var(--bg) 100%); color: var(--ink); font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; display: grid; place-items: center; padding: 24px 16px; }
+  main { width: min(440px, 100%); background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: 22px 20px 20px; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,.45); }
+  img.hero { width: 100%; border-radius: 12px; display: block; }
+  h1 { margin: 16px 0 4px; font-size: 24px; letter-spacing: .5px; }
+  p { margin: 6px 0; color: var(--muted); }
+  .code { margin: 14px auto 6px; font: 700 28px ui-monospace, "SF Mono", Menlo, Consolas, monospace; letter-spacing: 4px; color: var(--gold); }
+  .btn { display: block; width: 100%; margin-top: 10px; min-height: 48px; padding: 12px 16px; border-radius: 12px; border: 1px solid var(--line); background: transparent; color: var(--ink); font: 700 16px system-ui, sans-serif; text-decoration: none; cursor: pointer; }
+  .btn.main { background: var(--accent); border-color: var(--accent); color: #1a0d07; }
+  .btn:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+  ol { text-align: left; color: var(--muted); padding-left: 22px; margin: 14px 0 0; }
+  small { display: block; margin-top: 16px; color: var(--muted); font-size: 12.5px; }
+  small a { color: var(--gold); }
+  .bad { color: #ff9a8a; }
+</style>
+</head>
+<body>
+<main>
+  <img class="hero" src="og.png" alt="Dune Dash: a Kids mode dinosaur on a sunny desert and a Pro mode raptor in a night canyon">
+  <h1>Dune Dash challenge</h1>
+  <p id="what">Run your friend's course and try to beat their distance.</p>
+  <div class="code" id="code" aria-label="Challenge code"></div>
+  <a class="btn main" id="open" href="#">Open in Dune Dash</a>
+  <a class="btn" id="get" href="https://play.google.com/store/apps/details?id=com.sebaworldgames.dunedash">Get Dune Dash on Google Play</a>
+  <button class="btn" id="copy" type="button">Copy code</button>
+  <ol>
+    <li>Install Dune Dash (Android).</li>
+    <li>Tap this link again, or open the game and go to <b>Pro</b> › <b>Challenge</b> › <b>Paste code</b>.</li>
+  </ol>
+  <small>This page only shows the code from the link. It sets no cookies and sends nothing to us. Hosted on GitHub Pages. <a href="/dunedash/">Dune Dash privacy policy</a></small>
+</main>
+<script>
+  (function () {
+    var raw = (location.search || '').slice(1), code = raw.toUpperCase().replace(/[^0-9A-Z-]/g, '').slice(0, 11);
+    var ok = /^[0-9A-Z]{5}-[0-9A-Z]{5}$/.test(code), el = document.getElementById('code');
+    var play = 'https://play.google.com/store/apps/details?id=com.sebaworldgames.dunedash';
+    if (!ok) { el.textContent = 'No code in this link'; el.className = 'code bad'; document.getElementById('open').style.display = 'none'; document.getElementById('copy').style.display = 'none'; return; }
+    el.textContent = code;
+    document.getElementById('open').href = 'intent://sebaworldgames321-droid.github.io/c/?' + code + '#Intent;scheme=https;package=com.sebaworldgames.dunedash;S.browser_fallback_url=' + encodeURIComponent(play) + ';end';
+    document.getElementById('copy').addEventListener('click', function () {
+      var b = this, done = function () { b.textContent = 'Copied'; setTimeout(function () { b.textContent = 'Copy code'; }, 1800); };
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(code).then(done, function () { b.textContent = code; });
+      else b.textContent = code;
+    });
+  })();
+</script>
+</body>
+</html>
