@@ -1,0 +1,13 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.sebaworldgames.dunedash",
+      "sha256_cert_fingerprints": [
+        "E6:4C:EF:77:BF:6A:83:3A:55:C8:9A:79:E9:79:D9:2A:BA:D2:21:8D:15:EA:C3:47:11:45:4A:74:3C:2F:0C:77",
+        "7D:27:6A:EB:1A:EB:75:AB:9B:FC:AF:58:B9:76:B8:8B:EF:46:27:16:08:29:EB:5A:69:3A:7C:89:38:9D:34:6B"
+      ]
+    }
+  }
+]
