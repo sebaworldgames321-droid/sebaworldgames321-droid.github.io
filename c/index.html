@@ -41,16 +41,19 @@
     <li>Install Dune Dash (Android).</li>
     <li>Tap this link again, or open the game and go to <b>Pro</b> › <b>Challenge</b> › <b>Paste code</b>.</li>
   </ol>
-  <small>This page only shows the code from the link. It sets no cookies and sends nothing to us. Hosted on GitHub Pages. <a href="/dunedash/">Dune Dash privacy policy</a></small>
+  <small>This page only shows the code (and any friend name) from the link. It sets no cookies and sends nothing to us. Hosted on GitHub Pages. <a href="/dunedash/">Dune Dash privacy policy</a></small>
 </main>
 <script>
   (function () {
-    var raw = (location.search || '').slice(1), code = raw.toUpperCase().replace(/[^0-9A-Z-]/g, '').slice(0, 11);
+    var raw = (location.search || '').slice(1), code = raw.split('&')[0].toUpperCase().replace(/[^0-9A-Z-]/g, '').slice(0, 11);
+    var fm = /(?:^|&)f=([A-Za-z0-9._%-]{1,400})/.exec((location.hash || '').slice(1)) || /(?:^|&)f=([A-Za-z0-9._%-]{1,400})/.exec(raw), fq = fm ? '&f=' + fm[1] : '', who = ''; /* the card sits after # so it never reaches this server */
+    if (fm) { var parts = fm[1].split('.'); if (parts.length >= 13) { try { who = decodeURIComponent(parts.slice(12).join('.')).replace(/[\u0000-\u001f|<>]/g, '').trim().slice(0, 40); } catch (e) { who = ''; } } }
     var ok = /^[0-9A-Z]{5}-[0-9A-Z]{5}$/.test(code), el = document.getElementById('code');
     var play = 'https://play.google.com/store/apps/details?id=com.sebaworldgames.dunedash';
     if (!ok) { el.textContent = 'No code in this link'; el.className = 'code bad'; document.getElementById('open').style.display = 'none'; document.getElementById('copy').style.display = 'none'; return; }
     el.textContent = code;
-    document.getElementById('open').href = 'intent://sebaworldgames321-droid.github.io/c/?' + code + '#Intent;scheme=https;package=com.sebaworldgames.dunedash;S.browser_fallback_url=' + encodeURIComponent(play) + ';end';
+    if (who) document.getElementById('what').textContent = who + ' challenged you: run their course and try to beat their distance.';
+    document.getElementById('open').href = 'intent://sebaworldgames321-droid.github.io/c/?' + code + fq + '#Intent;scheme=https;package=com.sebaworldgames.dunedash;S.browser_fallback_url=' + encodeURIComponent(play) + ';end';
     document.getElementById('copy').addEventListener('click', function () {
       var b = this, done = function () { b.textContent = 'Copied'; setTimeout(function () { b.textContent = 'Copy code'; }, 1800); };
       if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(code).then(done, function () { b.textContent = code; });

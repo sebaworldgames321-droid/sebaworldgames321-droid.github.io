@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dune Dash friend card</title>
+<meta name="description" content="A Dune Dash friend card: add your friend in the game to see each other's best scores.">
+<meta property="og:title" content="Dune Dash friend card">
+<meta property="og:description" content="Add me as a friend in Dune Dash.">
+<meta property="og:image" content="https://sebaworldgames321-droid.github.io/c/og.png">
+<meta property="og:type" content="website">
+<meta name="robots" content="noindex">
+<style>
+  :root { --bg: #0b0a10; --panel: #17131d; --ink: #f1e9dc; --muted: #b9ad9c; --accent: #ff6a3d; --gold: #ffc450; --line: rgba(255,196,80,.35); }
+  * { box-sizing: border-box; }
+  body { margin: 0; min-height: 100vh; background: radial-gradient(120% 80% at 50% 0%, #3a163e 0%, #150b26 55%, var(--bg) 100%); color: var(--ink); font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; display: grid; place-items: center; padding: 24px 16px; }
+  main { width: min(440px, 100%); background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: 22px 20px 20px; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,.45); }
+  img.hero { width: 100%; border-radius: 12px; display: block; }
+  h1 { margin: 16px 0 4px; font-size: 24px; letter-spacing: .5px; }
+  p { margin: 6px 0; color: var(--muted); }
+  .code { margin: 14px auto 6px; font: 700 28px ui-monospace, "SF Mono", Menlo, Consolas, monospace; letter-spacing: 4px; color: var(--gold); }
+  .btn { display: block; width: 100%; margin-top: 10px; min-height: 48px; padding: 12px 16px; border-radius: 12px; border: 1px solid var(--line); background: transparent; color: var(--ink); font: 700 16px system-ui, sans-serif; text-decoration: none; cursor: pointer; }
+  .btn.main { background: var(--accent); border-color: var(--accent); color: #1a0d07; }
+  .btn:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+  ol { text-align: left; color: var(--muted); padding-left: 22px; margin: 14px 0 0; }
+  small { display: block; margin-top: 16px; color: var(--muted); font-size: 12.5px; }
+  small a { color: var(--gold); }
+  .bad { color: #ff9a8a; }
+  .who { overflow-wrap: anywhere; font-size: clamp(20px, 6vw, 28px); }
+</style>
+</head>
+<body>
+<main>
+  <img class="hero" src="/c/og.png" alt="Dune Dash: a Kids mode dinosaur on a sunny desert and a Pro mode raptor in a night canyon">
+  <h1>Dune Dash friend card</h1>
+  <p id="what">Add your friend in Dune Dash (Pro mode, 13 and over) to see their best scores.</p>
+  <p class="code who" id="who"></p>
+  <a class="btn main" id="open" href="#">Open in Dune Dash</a>
+  <a class="btn" id="get" href="https://play.google.com/store/apps/details?id=com.sebaworldgames.dunedash">Get Dune Dash on Google Play</a>
+  <ol>
+    <li>Install Dune Dash (Android).</li>
+    <li>After installing, tap the link in your message again. The game asks whether to add your friend (Pro mode, 13 and over).</li>
+  </ol>
+  <small>This page only reads the name in the link. The link also holds their Play Games player ID and best scores; it sits after the # so it never reaches this server. The page sets no cookies and sends nothing to us. Hosted on GitHub Pages. <a href="/dunedash/">Dune Dash privacy policy</a></small>
+</main>
+<script>
+  (function () {
+    var raw = (location.hash || '').slice(1) || (location.search || '').slice(1), card = raw.split('&')[0].replace(/[^A-Za-z0-9._%-]/g, '').slice(0, 400), parts = card.split('.'), who = '';
+    if (parts.length >= 13 && parts[0] === '1') { try { who = decodeURIComponent(parts.slice(12).join('.')).replace(/[\u0000-\u001f|<>]/g, '').trim().slice(0, 40); } catch (e) { who = ''; } }
+    var el = document.getElementById('who'), play = 'https://play.google.com/store/apps/details?id=com.sebaworldgames.dunedash';
+    if (!who) { el.textContent = 'No friend card in this link'; el.className = 'code bad'; document.getElementById('open').style.display = 'none'; return; }
+    el.textContent = who; el.style.letterSpacing = '0'; document.getElementById('what').textContent = who + ' wants to be friends in Dune Dash. Add them to see their best scores, and send yours back so they see yours (Pro mode, 13 and over).';
+    document.getElementById('open').href = 'intent://sebaworldgames321-droid.github.io/f/?' + card + '#Intent;scheme=https;package=com.sebaworldgames.dunedash;S.browser_fallback_url=' + encodeURIComponent(play) + ';end';
+  })();
+</script>
+</body>
+</html>
